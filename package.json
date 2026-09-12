@@ -1,9 +1,14 @@
 {
   "name": "ts-budget-tracker",
-  "module": "index.ts",
   "type": "module",
+  "module": "index.ts",
+  "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "oxlint": "^1.82.0"
   },
   "peerDependencies": {
     "typescript": "^7"
