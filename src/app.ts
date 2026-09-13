@@ -1,4 +1,5 @@
 import { addTransaction } from "./operations/addTransaction";
+import { deleteTransaction } from "./operations/deleteTransaction";
 import type { Transaction } from "./types/transaction";
 
 export const transactions: Transaction[] = [
@@ -32,4 +33,7 @@ export default function App() {
 
   let transactions_added = addTransaction(newTransaction);
   console.log(JSON.stringify(transactions_added));
+
+  let transactions_deleted = deleteTransaction({ type: "income" });
+  console.log(JSON.stringify(transactions_deleted));
 }
