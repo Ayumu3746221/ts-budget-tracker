@@ -1,0 +1,42 @@
+name: CodeQL
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  schedule:
+    - cron: "0 23 * * 0"
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    name: CodeQL analyze
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    timeout-minutes: 360
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+      - id: codeql-init
+        uses: "github/codeql-action/init@b96794f015dfd88f77b49b1c93e0fa7110f94c63" # v4.38.0
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+      - id: codeql-analyze
+        uses: "github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63" # v4.38.0

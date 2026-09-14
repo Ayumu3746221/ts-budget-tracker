@@ -4,13 +4,16 @@
   "module": "index.ts",
   "scripts": {
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "format": "oxfmt --check",
+    "fix": "oxlint --fix && oxfmt --write ."
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "oxfmt": "^0.68.0",
     "oxlint": "^1.82.0"
   },
   "peerDependencies": {
     "typescript": "^7"
-  }
+  },
+  "packageManager": "bun@1.4.2"
 }
