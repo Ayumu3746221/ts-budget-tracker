@@ -1,5 +1,6 @@
 import { addTransaction } from "./operations/addTransaction";
 import { deleteTransaction } from "./operations/deleteTransaction";
+import { getMonthlyExpense } from "./operations/getMonthlyExpense";
 import type { Transaction } from "./types/transaction";
 
 export const transactions: Transaction[] = [
@@ -19,6 +20,14 @@ export const transactions: Transaction[] = [
     date: "2026-09-11",
     description: "アルバイト",
   },
+  {
+    id: 3,
+    type: "expense",
+    category: "alcohol",
+    amount: 1300,
+    date: "2026-09-15",
+    description: "やけ酒",
+  },
 ];
 
 export default function App() {
@@ -36,4 +45,7 @@ export default function App() {
 
   let transactions_deleted = deleteTransaction({ type: "income" });
   console.log(JSON.stringify(transactions_deleted));
+
+  let transactions_expense = getMonthlyExpense();
+  console.log(transactions_expense);
 }
