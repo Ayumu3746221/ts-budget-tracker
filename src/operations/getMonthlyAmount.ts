@@ -1,12 +1,40 @@
 import type { TransactionType } from "../types/transaction";
 import { transactions } from "../app";
 
-export const getMonthlyAmountByType = (type: TransactionType): number => {
+interface MonthlyAmountDeps {
+  type: TransactionType;
+  year: number;
+  month: number;
+}
+
+export const getMonthlyAmountByType = ({
+  type,
+  year,
+  month,
+}: Partial<MonthlyAmountDeps> & Pick<MonthlyAmountDeps, "type">): number => {
+  const now = new Date();
+  const targetYear = year ?? now.getFullYear();
+  const targetMonth = month ?? now.getMonth();
+
   return transactions.reduce((sum, transaction) => {
-    return transaction.type === type ? sum + transaction.amount : sum;
+    if (
+      transaction.type === type &&
+      transaction.date.getFullYear() === targetYear &&
+      transaction.date.getMonth() === targetMonth
+    ) {
+      return sum + transaction.amount;
+    }
+
+    return sum;
   }, 0);
 };
 
-export const getMonthlyBalance = () => {
-  return getMonthlyAmountByType("income") - getMonthlyAmountByType("expense");
+export const getMonthlyBalance = ({
+  year,
+  month,
+}: Partial<Omit<MonthlyAmountDeps, "type">> = {}) => {
+  return (
+    getMonthlyAmountByType({ type: "income", year, month }) -
+    getMonthlyAmountByType({ type: "expense", year, month })
+  );
 };

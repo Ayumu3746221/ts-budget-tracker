@@ -47,10 +47,10 @@ export default function App() {
   console.log(JSON.stringify(transactions_deleted));
 
   // 月の支出
-  console.log(getMonthlyAmountByType("expense"));
+  console.log(getMonthlyAmountByType({ type: "expense" }));
 
   // 月の収入
-  console.log(getMonthlyAmountByType("income"));
+  console.log(getMonthlyAmountByType({ type: "income" }));
 
   // 月の支出と収入のバランス
   console.log(getMonthlyBalance());
