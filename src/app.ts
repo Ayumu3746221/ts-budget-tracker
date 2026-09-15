@@ -1,6 +1,6 @@
 import { addTransaction } from "./operations/addTransaction";
 import { deleteTransaction } from "./operations/deleteTransaction";
-import { getMonthlyExpense } from "./operations/getMonthlyExpense";
+import { getMonthlyAmountByType, getMonthlyBalance } from "./operations/getMonthlyAmount";
 import type { Transaction } from "./types/transaction";
 
 export const transactions: Transaction[] = [
@@ -9,7 +9,7 @@ export const transactions: Transaction[] = [
     type: "expense",
     category: "food",
     amount: 1200,
-    date: "2026-09-10",
+    date: new Date("2026-09-10"),
     description: "昼食",
   },
   {
@@ -17,7 +17,7 @@ export const transactions: Transaction[] = [
     type: "income",
     category: "salary",
     amount: 50000,
-    date: "2026-09-11",
+    date: new Date("2026-09-11"),
     description: "アルバイト",
   },
   {
@@ -25,7 +25,7 @@ export const transactions: Transaction[] = [
     type: "expense",
     category: "alcohol",
     amount: 1300,
-    date: "2026-09-15",
+    date: new Date("2026-09-15"),
     description: "やけ酒",
   },
 ];
@@ -36,7 +36,7 @@ export default function App() {
     type: "income",
     category: "salary",
     amount: 30000,
-    date: "2026-09-25",
+    date: new Date("2026-09-15"),
     description: "給与振り込み",
   };
 
@@ -46,6 +46,12 @@ export default function App() {
   let transactions_deleted = deleteTransaction({ type: "income" });
   console.log(JSON.stringify(transactions_deleted));
 
-  let transactions_expense = getMonthlyExpense();
-  console.log(transactions_expense);
+  // 月の支出
+  console.log(getMonthlyAmountByType("expense"));
+
+  // 月の収入
+  console.log(getMonthlyAmountByType("income"));
+
+  // 月の支出と収入のバランス
+  console.log(getMonthlyBalance());
 }
