@@ -1,4 +1,3 @@
-import { transactions } from "../app";
 import type { Transaction } from "../types/transaction";
 
 const transactionKeys = [
@@ -19,8 +18,11 @@ const isMacth = (deleted: Partial<Transaction>, transaction: Transaction) => {
   return true;
 };
 
-export const deleteTransaction = (deleted: Partial<Transaction>): Transaction[] => {
-  return transactions.filter((transaction: Transaction): boolean => {
+export const deleteTransaction = (
+  deleted: Partial<Transaction>,
+  current: Transaction[],
+): Transaction[] => {
+  return current.filter((transaction: Transaction): boolean => {
     return !isMacth(deleted, transaction);
   });
 };
