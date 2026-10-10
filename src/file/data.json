@@ -1,0 +1,18 @@
+{
+  "transaction": [
+    {
+      "id": 1,
+      "type": "expense",
+      "category": 1200,
+      "date": "2026-09-10",
+      "description": "昼食"
+    },
+    {
+      "id": 2,
+      "type": "income",
+      "category": 50000,
+      "date": "2026-09-11",
+      "description": "アルバイト"
+    }
+  ]
+}
