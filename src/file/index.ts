@@ -1,16 +1,19 @@
-const JSON_FILE_PATH = "./data.json";
+import { JSONL } from "bun";
+import { parseTransaction, type Transaction } from "../types/transaction";
 
-export const readFile = async () => {
-  const file = Bun.file(JSON_FILE_PATH);
+const JSONL_FILE = "/data.jsonl";
+
+export const readFile = async (): Promise<Transaction[] | Error> => {
+  const file = Bun.file(import.meta.dir + JSONL_FILE);
   if (!(await file.exists())) {
-    return new Error("Not Found JSON files");
+    return new Error("Not Found JSONL files");
   }
 
-  const contents = await file.json();
-  const json = JSON.parse(contents);
-  if (typeof json === "object") {
-    return new Error("The data in the file is invalid.");
-  }
+  const contents = await file.text();
+  const json = JSONL.parse(contents);
 
-  return json;
+  return json.map((content) => parseTransaction(content));
 };
+
+const result = await readFile();
+console.log(`DEBUG: ${JSON.stringify(result)}`);
