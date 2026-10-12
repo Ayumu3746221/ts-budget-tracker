@@ -14,6 +14,3 @@ export const readFile = async (): Promise<Transaction[] | Error> => {
 
   return json.map((content) => parseTransaction(content));
 };
-
-const result = await readFile();
-console.log(`DEBUG: ${JSON.stringify(result)}`);
