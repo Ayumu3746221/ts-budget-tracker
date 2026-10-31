@@ -1,4 +1,4 @@
-import { readFile } from "./file";
+import { readFile, writeFile } from "./file";
 import { addTransaction } from "./operations/addTransaction";
 import { deleteTransaction } from "./operations/deleteTransaction";
 import { getExpenseByCategory } from "./operations/getExpenseByCategory";
@@ -38,9 +38,5 @@ export default async function App() {
   // カテゴリーの計算
   console.log(getExpenseByCategory("food", transactions));
 
-  // エラーを出力するはず
-  console.error(
-    "should be error",
-    getMonthlyAmountByType({ type: "income", year: 2026, month: 13 }, transactions_deleted),
-  );
+  writeFile(transactions_deleted);
 }

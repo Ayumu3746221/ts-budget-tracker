@@ -14,3 +14,17 @@ export const readFile = async (): Promise<Transaction[]> => {
 
   return json.map((content) => parseTransaction(content));
 };
+
+export const writeFile = async (transactions: Transaction[]) => {
+  const file = Bun.file(import.meta.dir + JSONL_FILE);
+  if (!(await file.exists())) {
+    throw new Error("Not Found JSONL files");
+  }
+
+  const writer = file.writer();
+
+  const contents = transactions.map((transaction) => JSON.stringify(transaction)).join("\n");
+
+  writer.write(contents);
+  writer.end();
+};
